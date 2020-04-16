@@ -80,7 +80,7 @@ public class Main {
      * @return
      */
     public static <T1, T2> T2 beanToBean(T1 source, T2 target) {
-        // 第一个参数：源对象， 第二个参数：目标对象，第三个参数：是否使用自定义转换器（下面会介绍），下同
+        // 第一个参数：源对象， 第二个参数：目标对象，第三个参数：是否使用自定义转换器
         BeanCopier b = BeanCopier.create(source.getClass(), target.getClass(), false);
         b.copy(source, target, null);
 

@@ -25,6 +25,10 @@ public class MainController {
     @Log("POST请求")
     @PostMapping("/greet")
     public String greet(@RequestBody Map<String, Object> map) {
-        return String.format("Hello, %s", map.get("username").toString());
+        return String.format(
+                "Hello, %s.\nYou want to %s",
+                map.get("username").toString(),
+                map.get("action").toString()
+        );
     }
 }

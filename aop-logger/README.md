@@ -1,10 +1,28 @@
-package com.ytj.aoplogger.config;
+# 操作记录demo  
+使用AOP配合自定义注解方便的实现用户操作的监控。  
 
-import com.alibaba.fastjson.JSON;
-import com.ytj.aoplogger.Helper.HttpHelper;
-import com.ytj.aoplogger.annotation.Log;
-import com.ytj.aoplogger.model.Record;
+## 主要内容  
+1. 定义注解  
+```java
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
+/**
+ * @program: MySpringbootStudy
+ * @description: 自定义方法级别的注解Log
+ * @author: admin
+ * @create: 2020-04-16 10:49
+ **/
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Log {
+    String value() default "";
+}
+```
+2. 配置切面  
+```java
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -96,5 +114,25 @@ public class LogAspect {
         record.setOpTime(LocalDateTime.now().toString());
         //在这里可以将日志入库
         log.info("当前操作日志---" + JSON.toJSONString(record));
+
     }
 }
+```  
+3. 在controller中对需要记录的操作加上注解`@Log`  
+```java
+@Log("GET请求")
+@GetMapping("/hello")
+public String hello(HttpServletRequest request) {
+    return String.format("Hello from %s", request.getRequestURL().toString());
+}
+
+@Log("POST请求")
+@PostMapping("/greet")
+public String greet(@RequestBody Map<String, Object> map) {
+    return String.format(
+            "Hello, %s.\nYou want to %s",
+            map.get("username").toString(),
+            map.get("action").toString()
+    );
+}
+```

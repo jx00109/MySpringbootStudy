@@ -1,7 +1,7 @@
 package com.ytj.aoplogger.config;
 
 import com.alibaba.fastjson.JSON;
-import com.ytj.aoplogger.Helper.HttpHelper;
+import com.ytj.aoplogger.utils.HttpHelper;
 import com.ytj.aoplogger.annotation.Log;
 import com.ytj.aoplogger.model.Record;
 

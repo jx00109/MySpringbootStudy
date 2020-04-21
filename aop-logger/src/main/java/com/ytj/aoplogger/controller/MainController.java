@@ -31,4 +31,9 @@ public class MainController {
                 map.get("action").toString()
         );
     }
+
+    @GetMapping("/getInt")
+    public int getInt() {
+        return 1;
+    }
 }

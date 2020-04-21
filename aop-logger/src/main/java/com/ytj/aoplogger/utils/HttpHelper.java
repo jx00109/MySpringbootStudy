@@ -1,4 +1,4 @@
-package com.ytj.aoplogger.Helper;
+package com.ytj.aoplogger.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;

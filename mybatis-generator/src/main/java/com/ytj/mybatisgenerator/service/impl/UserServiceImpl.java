@@ -30,4 +30,11 @@ public class UserServiceImpl implements UserService {
         criteria.andUsernameEqualTo(username);
         return userMapper.selectByExample(userExample);
     }
+
+    @Override
+    public int batchUpsert(List<User> users) {
+        int n = userMapper.batchUpsert(users);
+        return n;
+    }
+
 }

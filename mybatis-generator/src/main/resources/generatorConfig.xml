@@ -59,12 +59,7 @@
         domainObjectName：生成的domain类的名字,当表名和domain类的名字有差异时一定要设置，如果不设置，直接使用表名作为domain类的名字；
         可以设置为somepck.domainName，那么会自动把domainName类再放到somepck包里面；
         -->
-        <!--        <table tableName="t_corp" domainObjectName="TCorp"></table>-->
-        <!--        <table tableName="t_corp_standard" domainObjectName="TCorpStandard"></table>-->
-        <!--        <table tableName="t_grade_standard" domainObjectName="TGradeStandard"></table>-->
-        <!--        <table tableName="t_addition_and_subtraction" domainObjectName="TAdditionAndSubtraction"></table>-->
         <table tableName="t_user" domainObjectName="User"/>
         <table tableName="t_role" domainObjectName="Role"/>
-        <!--        <table tableName="t_corp_add_and_sub" domainObjectName="TCorpAddAndSub"></table>-->
     </context>
 </generatorConfiguration>

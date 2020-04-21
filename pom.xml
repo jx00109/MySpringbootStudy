@@ -19,6 +19,7 @@
     <modules>
         <module>bean-copier</module>
         <module>aop-logger</module>
+        <module>mybatis-generator</module>
     </modules>
 
     <dependencies>

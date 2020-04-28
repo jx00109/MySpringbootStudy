@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 
 @Component("userMapper")
 public interface UserMapper {
-    int countByExample(UserExample example);
+    long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
 
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
 
@@ -20,7 +20,7 @@ public interface UserMapper {
 
     List<User> selectByExample(UserExample example);
 
-    User selectByPrimaryKey(Long id);
+    User selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
@@ -29,4 +29,12 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    int upsert(User record);
+
+    int upsertSelective(User record);
+
+    int batchUpsert(@Param("list") List<User> list);
+
+    int batchUpsertSelective(@Param("list") List<User> list, @Param("selective") User.Column ... selective);
 }

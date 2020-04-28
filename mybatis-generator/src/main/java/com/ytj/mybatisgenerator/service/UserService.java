@@ -12,4 +12,7 @@ import java.util.List;
  **/
 public interface UserService {
     List<User> findUserByUsername(String username);
+
+    int batchUpsert(List<User> users);
+
 }

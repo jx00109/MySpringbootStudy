@@ -1,33 +1,35 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ytj.mybatisgenerator.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.ytj.mybatisgenerator.model.User" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
-    <result column="landline" property="landline" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ytj.mybatisgenerator.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.ytj.mybatisgenerator.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="company_code" jdbcType="VARCHAR" property="companyCode" />
+    <result column="order_contact" jdbcType="VARCHAR" property="orderContact" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="order_contact_number" jdbcType="VARCHAR" property="orderContactNumber" />
+    <result column="order_consignee_address" jdbcType="VARCHAR" property="orderConsigneeAddress" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -38,25 +40,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -67,162 +69,358 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    id, username, password, mobile_phone, landline, email
+  <sql id="Base_Column_List">
+    id, username, password, company_code, order_contact, company_name, order_contact_number, 
+    order_consignee_address
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ytj.mybatisgenerator.model.UserExample" >
+  <select id="selectByExample" parameterType="com.ytj.mybatisgenerator.model.UserExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from t_user
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_user
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_user
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ytj.mybatisgenerator.model.UserExample" >
+  <delete id="deleteByExample" parameterType="com.ytj.mybatisgenerator.model.UserExample">
     delete from t_user
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ytj.mybatisgenerator.model.User" >
+  <insert id="insert" parameterType="com.ytj.mybatisgenerator.model.User">
     insert into t_user (id, username, password, 
-      mobile_phone, landline, email
+      company_code, order_contact, company_name, 
+      order_contact_number, order_consignee_address
       )
-    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{mobilePhone,jdbcType=VARCHAR}, #{landline,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{companyCode,jdbcType=VARCHAR}, #{orderContact,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{orderContactNumber,jdbcType=VARCHAR}, #{orderConsigneeAddress,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.ytj.mybatisgenerator.model.User" >
+  <insert id="insertSelective" parameterType="com.ytj.mybatisgenerator.model.User">
     insert into t_user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         username,
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password,
       </if>
-      <if test="mobilePhone != null" >
-        mobile_phone,
+      <if test="companyCode != null">
+        company_code,
       </if>
-      <if test="landline != null" >
-        landline,
+      <if test="orderContact != null">
+        order_contact,
       </if>
-      <if test="email != null" >
-        email,
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="orderContactNumber != null">
+        order_contact_number,
+      </if>
+      <if test="orderConsigneeAddress != null">
+        order_consignee_address,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="mobilePhone != null" >
-        #{mobilePhone,jdbcType=VARCHAR},
+      <if test="companyCode != null">
+        #{companyCode,jdbcType=VARCHAR},
       </if>
-      <if test="landline != null" >
-        #{landline,jdbcType=VARCHAR},
+      <if test="orderContact != null">
+        #{orderContact,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderContactNumber != null">
+        #{orderContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConsigneeAddress != null">
+        #{orderConsigneeAddress,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ytj.mybatisgenerator.model.UserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.ytj.mybatisgenerator.model.UserExample" resultType="java.lang.Long">
     select count(*) from t_user
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update t_user
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null" >
+      <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null" >
+      <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.mobilePhone != null" >
-        mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      <if test="record.companyCode != null">
+        company_code = #{record.companyCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.landline != null" >
-        landline = #{record.landline,jdbcType=VARCHAR},
+      <if test="record.orderContact != null">
+        order_contact = #{record.orderContact,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null" >
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.companyName != null">
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderContactNumber != null">
+        order_contact_number = #{record.orderContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderConsigneeAddress != null">
+        order_consignee_address = #{record.orderConsigneeAddress,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update t_user
-    set id = #{record.id,jdbcType=BIGINT},
+    set id = #{record.id,jdbcType=INTEGER},
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
-      landline = #{record.landline,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
+      company_code = #{record.companyCode,jdbcType=VARCHAR},
+      order_contact = #{record.orderContact,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      order_contact_number = #{record.orderContactNumber,jdbcType=VARCHAR},
+      order_consignee_address = #{record.orderConsigneeAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ytj.mybatisgenerator.model.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.ytj.mybatisgenerator.model.User">
     update t_user
-    <set >
-      <if test="username != null" >
+    <set>
+      <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="mobilePhone != null" >
-        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      <if test="companyCode != null">
+        company_code = #{companyCode,jdbcType=VARCHAR},
       </if>
-      <if test="landline != null" >
-        landline = #{landline,jdbcType=VARCHAR},
+      <if test="orderContact != null">
+        order_contact = #{orderContact,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderContactNumber != null">
+        order_contact_number = #{orderContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConsigneeAddress != null">
+        order_consignee_address = #{orderConsigneeAddress,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ytj.mybatisgenerator.model.User" >
+  <update id="updateByPrimaryKey" parameterType="com.ytj.mybatisgenerator.model.User">
     update t_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
-      landline = #{landline,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      order_contact = #{orderContact,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      order_contact_number = #{orderContactNumber,jdbcType=VARCHAR},
+      order_consignee_address = #{orderConsigneeAddress,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
+  <insert id="upsertSelective" parameterType="com.ytj.mybatisgenerator.model.User">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="companyCode != null">
+        company_code,
+      </if>
+      <if test="orderContact != null">
+        order_contact,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="orderContactNumber != null">
+        order_contact_number,
+      </if>
+      <if test="orderConsigneeAddress != null">
+        order_consignee_address,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null">
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderContact != null">
+        #{orderContact,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderContactNumber != null">
+        #{orderContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConsigneeAddress != null">
+        #{orderConsigneeAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null">
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderContact != null">
+        order_contact = #{orderContact,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderContactNumber != null">
+        order_contact_number = #{orderContactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConsigneeAddress != null">
+        order_consignee_address = #{orderConsigneeAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="upsert" parameterType="com.ytj.mybatisgenerator.model.User">
+    insert into t_user
+    (id, username, password, company_code, order_contact, company_name, order_contact_number, 
+      order_consignee_address)
+    values
+    (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{companyCode,jdbcType=VARCHAR}, #{orderContact,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{orderContactNumber,jdbcType=VARCHAR}, #{orderConsigneeAddress,jdbcType=VARCHAR}
+      )
+    on duplicate key update 
+    id = #{id,jdbcType=INTEGER}, 
+    username = #{username,jdbcType=VARCHAR}, 
+    password = #{password,jdbcType=VARCHAR}, 
+    company_code = #{companyCode,jdbcType=VARCHAR}, 
+    order_contact = #{orderContact,jdbcType=VARCHAR}, 
+    company_name = #{companyName,jdbcType=VARCHAR}, 
+    order_contact_number = #{orderContactNumber,jdbcType=VARCHAR}, 
+    order_consignee_address = #{orderConsigneeAddress,jdbcType=VARCHAR}
+  </insert>
+  <insert id="batchUpsertSelective" parameterType="map">
+    insert into t_user (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'id'.toString() == column.value">
+          #{item.id,jdbcType=INTEGER}
+        </if>
+        <if test="'username'.toString() == column.value">
+          #{item.username,jdbcType=VARCHAR}
+        </if>
+        <if test="'password'.toString() == column.value">
+          #{item.password,jdbcType=VARCHAR}
+        </if>
+        <if test="'company_code'.toString() == column.value">
+          #{item.companyCode,jdbcType=VARCHAR}
+        </if>
+        <if test="'order_contact'.toString() == column.value">
+          #{item.orderContact,jdbcType=VARCHAR}
+        </if>
+        <if test="'company_name'.toString() == column.value">
+          #{item.companyName,jdbcType=VARCHAR}
+        </if>
+        <if test="'order_contact_number'.toString() == column.value">
+          #{item.orderContactNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="'order_consignee_address'.toString() == column.value">
+          #{item.orderConsigneeAddress,jdbcType=VARCHAR}
+        </if>
+      </foreach>
+      )
+    </foreach>
+    on duplicate key update 
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName} = values(${column.escapedColumnName})
+    </foreach>
+  </insert>
+  <insert id="batchUpsert" parameterType="map">
+    insert into t_user
+    (id, username, password, company_code, order_contact, company_name, order_contact_number, 
+      order_consignee_address)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.username,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, 
+        #{item.companyCode,jdbcType=VARCHAR}, #{item.orderContact,jdbcType=VARCHAR}, #{item.companyName,jdbcType=VARCHAR}, 
+        #{item.orderContactNumber,jdbcType=VARCHAR}, #{item.orderConsigneeAddress,jdbcType=VARCHAR}
+        )
+    </foreach>
+    on duplicate key update 
+    id = values(id),
+    username = values(username),
+    password = values(password),
+    company_code = values(company_code),
+    order_contact = values(order_contact),
+    company_name = values(company_name),
+    order_contact_number = values(order_contact_number),
+    order_consignee_address = values(order_consignee_address)
+  </insert>
 </mapper>

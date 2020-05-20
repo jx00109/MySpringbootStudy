@@ -20,6 +20,7 @@
         <module>bean-copier</module>
         <module>aop-logger</module>
         <module>mybatis-generator</module>
+        <module>easyexcel</module>
     </modules>
 
     <dependencies>
